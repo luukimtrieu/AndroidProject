@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:background="@drawable/round_background"
+    tools:context=".Controller.FragmentWeather">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:text="Weather"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSunny"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintHorizontal_bias=".1"
+        app:layout_constraintVertical_bias=".5"
+        android:background="@drawable/sunny_modified"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCloudy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/cloudy_modified"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintVertical_bias=".5" />
+
+    <Button
+        android:id="@+id/buttonRainy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/rainy_modified"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSnowy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/snowy_modified"
+        app:layout_constraintHorizontal_bias=".7"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonWindy"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/wind_modified"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias=".9"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sunny"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSunny"
+        app:layout_constraintStart_toStartOf="@+id/buttonSunny"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSunny" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cloudy"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonCloudy"
+        app:layout_constraintStart_toStartOf="@+id/buttonCloudy"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCloudy" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rainy"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonRainy"
+        app:layout_constraintStart_toStartOf="@+id/buttonRainy"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRainy" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="snowy"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSnowy"
+        app:layout_constraintStart_toStartOf="@+id/buttonSnowy"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSnowy" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="windy"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonWindy"
+        app:layout_constraintStart_toStartOf="@+id/buttonWindy"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWindy" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

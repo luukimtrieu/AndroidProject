@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1c1c1c"
+    tools:context=".Controller.HolderAddFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/containerHowWasYourDay"
+            android:layout_margin="16dp"
+            android:name="com.example.androidproject.Controller.FragmentHowWasYourDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/containerWeather"
+            android:layout_margin="16dp"
+            android:name="com.example.androidproject.Controller.FragmentWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView5"
+            android:layout_margin="16dp"
+
+            android:name="com.example.androidproject.Controller.FragmentSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView6"
+            android:layout_margin="16dp"
+
+            android:name="com.example.androidproject.Controller.FragmentTodayNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView7"
+            android:layout_margin="16dp"
+
+            android:name="com.example.androidproject.Controller.FragmentTodayPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+</LinearLayout>

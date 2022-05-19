@@ -3,17 +3,21 @@
 
     <item android:id="@+id/calendarFragment"
         android:title="Calendar"
+        android:iconTint="@color/light_green"
         android:icon="@drawable/ic_baseline_calendar"/>
 
     <item android:id="@+id/timelineFragment"
         android:title="Timeline"
+        android:iconTint="@color/light_green"
         android:icon="@drawable/ic_baseline_timeline"/>
 
     <item android:id="@+id/reportFragment"
         android:title="Report"
+        android:iconTint="@color/light_green"
         android:icon="@drawable/ic_baseline_analytics"/>
 
     <item android:id="@+id/settingFragment"
         android:title="Setting"
+        android:iconTint="@color/light_green"
         android:icon="@drawable/ic_baseline_settings"/>
 </menu>

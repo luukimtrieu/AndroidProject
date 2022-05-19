@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:background="@drawable/round_background"
+    tools:context=".Controller.FragmentHowWasYourDay">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="How was your day?"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+            <RadioButton
+            android:id="@+id/radioButtonSuperHappy"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+                android:text="super happy"
+                android:textSize="0dp"
+                android:layout_marginRight="20dp"
+            android:background="@drawable/super_happy_background"
+            android:button="@null"
+            />
+
+            <RadioButton
+                android:id="@+id/radioButtonHappy"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:text="happy"
+                android:textSize="0dp"
+                android:layout_marginRight="20dp" android:background="@drawable/happy_background"
+                android:button="@null"
+            />
+
+
+            <RadioButton
+                android:id="@+id/radioButtonNoEmotion"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:text="no emotion"
+                android:textSize="0dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/no_emotion_background"
+                android:button="@null"
+                />
+
+        <RadioButton
+            android:id="@+id/radioButtonSad"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="sad"
+            android:textSize="0dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/sad_background"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSuperSad"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="super sad"
+            android:textSize="0dp"
+            android:background="@drawable/super_sad_background"
+            android:button="@null" />
+
+    </RadioGroup>
+
+
+
+
+
+
+</LinearLayout>

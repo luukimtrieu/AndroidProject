@@ -7,22 +7,50 @@
 
     <fragment
         android:id="@+id/timelineFragment"
-        android:name="com.example.androidproject.TimelineFragment"
+        android:name="com.example.androidproject.Controller.TimelineFragment"
         android:label="fragment_timeline"
         tools:layout="@layout/fragment_timeline" />
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.example.androidproject.ReportFragment"
+        android:name="com.example.androidproject.Controller.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.androidproject.CalendarFragment"
+        android:name="com.example.androidproject.Controller.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_addDayStatusFragment"
+            app:destination="@id/addDayStatusFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.androidproject.SettingFragment"
+        android:name="com.example.androidproject.Controller.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+
+    <action android:id="@+id/action_global_calendarFragment" app:destination="@id/calendarFragment"
+        app:popUpTo="@+id/nav_graph"
+        app:popUpToInclusive="true"/>
+    <action android:id="@+id/action_global_timelineFragment" app:destination="@id/timelineFragment"
+        app:popUpTo="@+id/nav_graph"
+        app:popUpToInclusive="true"/>
+    <action android:id="@+id/action_global_reportFragment" app:destination="@id/reportFragment"
+        app:popUpTo="@+id/nav_graph"
+        app:popUpToInclusive="true"/>
+    <action android:id="@+id/action_global_settingFragment" app:destination="@id/settingFragment"/>
+    <fragment
+        android:id="@+id/addDayStatusFragment"
+        android:name="com.example.androidproject.Controller.AddDayStatusFragment"
+        android:label="fragment_add_day_status"
+        tools:layout="@layout/fragment_add_day_status" >
+        <action
+            android:id="@+id/action_addDayStatusFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

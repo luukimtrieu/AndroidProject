@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CalendarFragment"/>
+    android:orientation="vertical"
+    android:background="#1c1c1c"
+    tools:context=".Controller.CalendarFragment">
+
+    <Button
+        android:id="@+id/calendarDatePicker"
+        style="@style/SpinnerButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="April 2022"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/TextViewSunday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SUN"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textColor="@color/light_gray"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="MON"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TUE"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="WED"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textColor="@color/light_gray"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="THU"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textColor="@color/light_gray"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="FRI"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textColor="@color/light_gray"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SAT"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecycleViewSubIcons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+        app:defaultNavHost="true"
+        android:visibility="invisible"
+        app:navGraph="@navigation/nav_graph2" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_menu_color"
+        app:itemTextColor="@color/light_green"
+        app:itemIconTint="@color/selected_color"
+        app:menu="@menu/bottom_menu" />
+
+</LinearLayout>

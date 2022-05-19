@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:background="@drawable/round_background"
+    tools:context=".Controller.FragmentSocial">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:text="Social"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonFriends"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/friend_modified"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".5" />
+
+    <Button
+        android:id="@+id/buttonFamily"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/family_modified"
+        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGFBF"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/love_modified"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAcquaintance"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/acquaintance_modifie"
+        app:layout_constraintHorizontal_bias=".7"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNone"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/none_modified"
+        app:layout_constraintHorizontal_bias=".9"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="friends"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonFriends"
+        app:layout_constraintStart_toStartOf="@+id/buttonFriends"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFriends" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="family"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonFamily"
+        app:layout_constraintStart_toStartOf="@+id/buttonFamily"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFamily" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GF/BF"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonGFBF"
+        app:layout_constraintStart_toStartOf="@+id/buttonGFBF"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGFBF" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="acquaintance"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAcquaintance"
+        app:layout_constraintStart_toStartOf="@+id/buttonAcquaintance"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAcquaintance" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="none"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/buttonNone"
+        app:layout_constraintStart_toStartOf="@+id/buttonNone"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNone" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
