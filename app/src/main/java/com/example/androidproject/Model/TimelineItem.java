@@ -7,11 +7,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TimelineItem {
     private ImageView mainIcon;
-    private TextView dayMonth;
     private TextView straightLine;
     private RecyclerView subIcons;
     private TextView notes;
     private ImageView photo;
+    private TextView dayOfWeek;
+
+    public TimelineItem(ImageView mainIcon, TextView straightLine, TextView notes, ImageView photo, TextView dayOfWeek) {
+        this.mainIcon = mainIcon;
+        this.straightLine = straightLine;
+        this.notes = notes;
+        this.photo = photo;
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public TextView getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(TextView dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
 
     public ImageView getMainIcon() {
         return mainIcon;
@@ -19,14 +35,6 @@ public class TimelineItem {
 
     public void setMainIcon(ImageView mainIcon) {
         this.mainIcon = mainIcon;
-    }
-
-    public TextView getDayMonth() {
-        return dayMonth;
-    }
-
-    public void setDayMonth(TextView dayMonth) {
-        this.dayMonth = dayMonth;
     }
 
     public TextView getStraightLine() {
@@ -61,12 +69,5 @@ public class TimelineItem {
         this.photo = photo;
     }
 
-    public TimelineItem(ImageView mainIcon, TextView dayMonth, TextView straightLine, RecyclerView subIcons, TextView notes, ImageView photo) {
-        this.mainIcon = mainIcon;
-        this.dayMonth = dayMonth;
-        this.straightLine = straightLine;
-        this.subIcons = subIcons;
-        this.notes = notes;
-        this.photo = photo;
-    }
+
 }

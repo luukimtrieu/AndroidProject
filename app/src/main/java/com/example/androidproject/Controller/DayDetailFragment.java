@@ -5,18 +5,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.example.androidproject.Model.DayDetailIcon;
+import com.example.androidproject.Model.Database.AppDatabase;
+import com.example.androidproject.Model.StringViewModel;
 import com.example.androidproject.R;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +35,10 @@ public class DayDetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private AppDatabase db;
+    private String fullDate;
+    private String day_string;
+    private Bundle bundle;
 
     public DayDetailFragment() {
         // Required empty public constructor
@@ -76,38 +82,14 @@ public class DayDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<DayDetailIcon> icons = getIcons();
-
-        RecyclerView recyclerView = view.findViewById(R.id.RecycleViewSubIcons);
-
-        DayDetailIconAdapter adapter = new DayDetailIconAdapter(getContext(), icons);
-
-        recyclerView.setAdapter(adapter);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5));
-
-        ImageView imageView = view.findViewById(R.id.imageViewPhoto);
-        imageView.setImageResource(R.drawable.happy);
     }
 
-    public ArrayList<DayDetailIcon> getIcons()
+    public String getDay(String day)
     {
-        ImageView imageView = new ImageView(getContext());
-
-        imageView.setImageResource(R.drawable.happy);
-
-        ArrayList<DayDetailIcon> icons = new ArrayList<>();
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-
-        return icons;
+        int index = day.indexOf(" ");
+        if(index == 1)
+            return day.substring(0,1);
+        return day.substring(0,2);
     }
+
 }

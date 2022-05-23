@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.room.Room;
@@ -67,6 +68,8 @@ public class AddDayStatusFragment extends Fragment {
     boolean none = false;
     String note = "";
     String photo_url = "";
+    String dayOfWeek = "";
+    String day = "";
 
     Button btnSunny;
     Button btnCloudy;
@@ -143,7 +146,14 @@ public class AddDayStatusFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Navigation.findNavController(view).navigate(R.id.action_addDayStatusFragment_to_calendarFragment);
+                if(getArguments() != null){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("date", getArguments().getString("year month"));
+                    if(getArguments().getBoolean("timeline"))
+                        Navigation.findNavController(view).navigate(R.id.action_addDayStatusFragment_to_timelineFragment, bundle);
+                    else
+                        Navigation.findNavController(view).navigate(R.id.action_addDayStatusFragment_to_calendarFragment, bundle);
+                }
                 return false;
             }
         });
@@ -183,7 +193,13 @@ public class AddDayStatusFragment extends Fragment {
                             initData();
                             updateData();
                             Toast.makeText(getContext(), "Update successfully", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(iview).navigate(R.id.action_addDayStatusFragment_to_calendarFragment);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("date", getArguments().getString("year month"));
+
+                            if(getArguments().getBoolean("timeline"))
+                                Navigation.findNavController(view).navigate(R.id.action_addDayStatusFragment_to_timelineFragment, bundle);
+                            else
+                                Navigation.findNavController(view).navigate(R.id.action_addDayStatusFragment_to_calendarFragment, bundle);
                         }
                         else
                         {
@@ -193,7 +209,24 @@ public class AddDayStatusFragment extends Fragment {
                 });
             }
             else if(getArguments().getInt("exist") == 0) {
+                viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
                 db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+                DayStatus dayStatus = new DayStatus();
+                dayStatus.emotion_type = "";
+                dayStatus.none = false;
+                dayStatus.family = false;
+                dayStatus.friends = false;
+                dayStatus.acquaintance = false;
+                dayStatus.GFBF = false;
+                dayStatus.sunny = false;
+                dayStatus.snowy = false;
+                dayStatus.windy = false;
+                dayStatus.cloudy = false;
+                dayStatus.rainy = false;
+                dayStatus.note = "";
+                dayStatus.photo_URL = "";
+                viewModel.setDayStatus(dayStatus);
+
                 tvYearDayMonth = view.findViewById(R.id.tvYearDayMonth);
                 tvYearDayMonth.setText(getDate());
 
@@ -219,9 +252,11 @@ public class AddDayStatusFragment extends Fragment {
                         checkedRadioButton = view.findViewById(checkedButtonID);
 
                         if (checkedButtonID != -1) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("date", getArguments().getString("year month"));
                             initData();
                             insertData();
-                            Navigation.findNavController(iview).navigate(R.id.action_addDayStatusFragment_to_calendarFragment);
+                            Navigation.findNavController(iview).navigate(R.id.action_addDayStatusFragment_to_calendarFragment, bundle);
                         }
                         else
                             Toast.makeText(getContext(), "Please select your emotion", Toast.LENGTH_LONG).show();
@@ -231,10 +266,6 @@ public class AddDayStatusFragment extends Fragment {
         }
     }
 
-    public String getMonthYearFromDate(String date)
-    {
-        return date.substring(0, date.length() - 3);
-    }
 
     public String getDate()
     {
@@ -269,8 +300,32 @@ public class AddDayStatusFragment extends Fragment {
         , dayStatus.acquaintance, dayStatus.GFBF, dayStatus.none, dayStatus.date);
     }
 
+    public void dayOfWeekFormat(String dayOfWeek)
+    {
+        if(dayOfWeek.equals("MONDAY"))
+            this.dayOfWeek = "Mon";
+        if(dayOfWeek.equals("TUESDAY"))
+            this.dayOfWeek = "Tue";
+        if(dayOfWeek.equals("WEDNESDAY"))
+            this.dayOfWeek = "Wed";
+        if(dayOfWeek.equals("THURSDAY"))
+            this.dayOfWeek = "Thu";
+        if(dayOfWeek.equals("FRIDAY"))
+            this.dayOfWeek = "Fri";
+        if(dayOfWeek.equals("SATURDAY"))
+            this.dayOfWeek = "Sat";
+        if(dayOfWeek.equals("SUNDAY"))
+            this.dayOfWeek = "Sun";
+    }
+
     private void insertData() {
         DayStatus dayStatus = new DayStatus();
+        if(getArguments() != null){
+            dayOfWeek = getArguments().getString("day of week");
+            day = getArguments().getString("day");
+        }
+        dayOfWeekFormat(dayOfWeek);
+
         String date = getDate();
 
         dayStatus.emotion_type = emotion_type;
@@ -287,6 +342,7 @@ public class AddDayStatusFragment extends Fragment {
         dayStatus.note = note;
         dayStatus.date = date;
         dayStatus.photo_URL = photo_url;
+        dayStatus.day_of_week = day + " " + dayOfWeek;
 
         db.dayStatusDao().insert(dayStatus);
     }
@@ -338,10 +394,5 @@ public class AddDayStatusFragment extends Fragment {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(R.id.action_addDayStatusFragment_to_calendarFragment);
-        return super.onOptionsItemSelected(item);
-    }
 }
 

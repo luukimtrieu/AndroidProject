@@ -6,8 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.room.Room;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +19,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.example.androidproject.Model.Database.AppDatabase;
+import com.example.androidproject.Model.Database.DayStatus;
+import com.example.androidproject.Model.StringViewModel;
 import com.example.androidproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +50,7 @@ public class ReportFragment extends Fragment {
     private Button btnDatePicker;
     private MonthYearPickerDialog monthYearPickerDialog;
     private BottomNavigationView bottomNavigationView;
+    private AppDatabase db;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -81,15 +93,38 @@ public class ReportFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+        StringViewModel viewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
 
-
-        btnDatePicker = view.findViewById(R.id.btnDatePicker);
+        btnDatePicker = view.findViewById(R.id.reportDatePicker);
         initDatePicker();
         btnDatePicker.setText(getTodayDate());
+        YearMonth yearMonth = toYearMonth(btnDatePicker.getText().toString());
+        viewModel.setString(yearMonth.toString());
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
+            }
+        });
+
+        btnDatePicker.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String date = dateFormat(btnDatePicker.getText().toString());
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+                YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+                viewModel.setString(yearMonth.toString());
             }
         });
 
@@ -118,13 +153,28 @@ public class ReportFragment extends Fragment {
         });
     }
 
+    public YearMonth toYearMonth(String date)
+    {
+        date = dateFormat(date);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+        YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+        return yearMonth;
+    }
+
     public String getTodayDate()
     {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         month += 1;
-        return getMonthFormat(month) + " " + year;
+        return month + "/" + year;
+    }
+
+    public String dateFormat(String date)
+    {
+        if(date.charAt(1) == '/')
+            return "0" + date;
+        return date;
     }
 
     public void initDatePicker()
@@ -142,37 +192,9 @@ public class ReportFragment extends Fragment {
         monthYearPickerDialog.setListener(onDateSetListener);
     }
 
-    public String getMonthFormat(int month) {
-        if(month == 1)
-            return "Jan";
-        if(month == 2)
-            return "Feb";
-        if(month == 3)
-            return "Mar";
-        if(month == 4)
-            return "Apr";
-        if(month == 5)
-            return "May";
-        if(month == 6)
-            return "June";
-        if(month == 7)
-            return "July";
-        if(month == 8)
-            return "Aug";
-        if(month == 9)
-            return "Sep";
-        if(month == 10)
-            return "Oct";
-        if(month == 11)
-            return "Nov";
-        if(month == 12)
-            return "Dec";
-        return "Jan";
-    }
-
     public String makeDateString(int month, int year)
     {
-        return getMonthFormat(month) + " " + year;
+        return month + "/" + year;
     }
 
 

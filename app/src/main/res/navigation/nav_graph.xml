@@ -9,7 +9,14 @@
         android:id="@+id/timelineFragment"
         android:name="com.example.androidproject.Controller.TimelineFragment"
         android:label="fragment_timeline"
-        tools:layout="@layout/fragment_timeline" />
+        tools:layout="@layout/fragment_timeline" >
+        <action
+            android:id="@+id/action_timelineFragment_to_addDayStatusFragment"
+            app:destination="@id/addDayStatusFragment" />
+        <action
+            android:id="@+id/action_timelineFragment_self"
+            app:destination="@id/timelineFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.androidproject.Controller.ReportFragment"
@@ -52,5 +59,8 @@
             app:destination="@id/calendarFragment"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_addDayStatusFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment" />
     </fragment>
 </navigation>

@@ -1,29 +1,49 @@
 package com.example.androidproject.Controller;
 
+import android.app.DatePickerDialog;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.androidproject.Model.Database.AppDatabase;
+import com.example.androidproject.Model.Database.DayStatus;
 import com.example.androidproject.Model.DayDetailIcon;
+import com.example.androidproject.Model.StringViewModel;
 import com.example.androidproject.Model.TimelineItem;
 import com.example.androidproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +61,14 @@ public class TimelineFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private BottomNavigationView bottomNavigationView;
+    private Button btnDatePicker;
+    private MonthYearPickerDialog monthYearPickerDialog;
+    private AppDatabase db;
+    private RecyclerView recyclerView;
+    private TimelineAdapter timelineAdapter;
+    private StringViewModel stringViewModel;
+    private String yearMonth_string;
+
 
     public TimelineFragment() {
         // Required empty public constructor
@@ -83,92 +111,294 @@ public class TimelineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(getArguments() != null)
+        {
+            db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+            String date = getArguments().getString("date");
 
-        ArrayList<TimelineItem> items = getItem();
-        RecyclerView recyclerView = view.findViewById(R.id.recycleViewTimeline);
-        TimelineAdapter adapter = new TimelineAdapter(getContext(), items);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.timelineFragment );
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.calendarFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
-                        break;
-                    case R.id.timelineFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
-                        break;
-                    case R.id.reportFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
-                        break;
-                    case R.id.settingFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
-                        break;
+            stringViewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
+            recyclerView = view.findViewById(R.id.recycleViewTimeline);
+            btnDatePicker = view.findViewById(R.id.timelineDatePicker);
+            initDatePicker();
+            date = toMonthYear(date);
+            btnDatePicker.setText(removeFirstCharZero(date));
+            btnDatePicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
                 }
-                return true;
-            }
-        });
+            });
+
+            btnDatePicker.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String date = dateFormat(btnDatePicker.getText().toString());
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+                    YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+                    yearMonth_string = yearMonth.toString();
+                    setData(yearMonth);
+                }
+            });
+
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+            YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+            yearMonth_string = yearMonth.toString();
+            setData(yearMonth);
+
+
+            bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+            bottomNavigationView.setSelectedItemId(R.id.timelineFragment);
+            bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.calendarFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
+                            break;
+                        case R.id.timelineFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
+                            break;
+                        case R.id.reportFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
+                            break;
+                        case R.id.settingFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
+                            break;
+                    }
+                    return true;
+                }
+            });
+        }
+        else {
+            db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+            stringViewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
+            recyclerView = view.findViewById(R.id.recycleViewTimeline);
+            btnDatePicker = view.findViewById(R.id.timelineDatePicker);
+            initDatePicker();
+            btnDatePicker.setText(getTodayDate());
+            btnDatePicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
+                }
+            });
+
+            btnDatePicker.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String date = dateFormat(btnDatePicker.getText().toString());
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+                    YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+                    yearMonth_string = yearMonth.toString();
+                    setData(yearMonth);
+                }
+            });
+
+            yearMonth_string = getDate();
+            LocalDate localDate = LocalDate.now();
+            YearMonth yearMonth = YearMonth.from(localDate);
+            setData(yearMonth);
+
+            bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+            bottomNavigationView.setSelectedItemId(R.id.timelineFragment);
+            bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.calendarFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
+                            break;
+                        case R.id.timelineFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
+                            break;
+                        case R.id.reportFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
+                            break;
+                        case R.id.settingFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
+                            break;
+                    }
+                    return true;
+                }
+            });
+
+        }
     }
 
-    public ArrayList<TimelineItem> getItem()
+    public String removeFirstCharZero(String date)
     {
-        ImageView mainIcon = new ImageView(getContext());
-        mainIcon.setImageResource(R.drawable.happy);
+        if(date.charAt(0) == '0')
+            return date.substring(1);
+        return date;
+    }
 
-        TextView dayMonth = new TextView(getContext());
-        dayMonth.setText("haha");
+    public String toMonthYear(String date)
+    {
+        String temp1 = date.substring(0,4);
+        String temp2 = date.substring(5,7);
+        return temp2 + "/" + temp1;
+    }
 
-        TextView straightLine = new TextView(getContext());
-        straightLine.setText("straight");
+    public String getDate()
+    {
+        String date = dateFormat(btnDatePicker.getText().toString());
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+        YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+        return yearMonth.toString();
+    }
 
-        ArrayList<DayDetailIcon> icons = getIcons();
 
-        DayDetailIconAdapter adapter = new DayDetailIconAdapter(getContext(), icons);
+    public void setData(YearMonth yearMonth)
+    {
+        List<DayStatus> dayStatuses = db.dayStatusDao().getAllBySelectedDate(yearMonth.toString());
+        List<List<DayDetailIcon>> icons = getIconss(dayStatuses);
+        List<TimelineItem> items = getItems(dayStatuses);
+        timelineAdapter = new TimelineAdapter(getContext(), items, icons, yearMonth_string, getParentFragmentManager());
+        recyclerView.setAdapter(timelineAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
 
-        RecyclerView subIcons = new RecyclerView(getContext());
+    public String getTodayDate()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        month += 1;
+        return month + "/" + year;
+    }
 
-        subIcons.setAdapter(adapter);
+    public String dateFormat(String date)
+    {
+        if(date.charAt(1) == '/')
+            return "0" + date;
+        return date;
+    }
 
-        subIcons.setLayoutManager(new GridLayoutManager(getContext(), 5));
+    public void initDatePicker()
+    {
+        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                i1 += 1;
+                String date = makeDateString(i1, i);
+                btnDatePicker.setText(date);
+            }
+        };
 
-        TextView notes = new TextView(getContext());
-        notes.setText("notes ne");
+        monthYearPickerDialog = new MonthYearPickerDialog();
+        monthYearPickerDialog.setListener(onDateSetListener);
+    }
 
-        ImageView photo = new ImageView(getContext());
-        photo.setImageResource(R.drawable.happy);
+    public String makeDateString(int month, int year)
+    {
+        return month + "/" + year;
+    }
 
-        TimelineItem item = new TimelineItem(mainIcon, dayMonth, straightLine, subIcons, notes, photo);
 
-        ArrayList<TimelineItem> items = new ArrayList<>();
-        items.add(item);
-        items.add(item);
-        items.add(item);
+
+    public List<TimelineItem> getItems(List<DayStatus> dayStatuses)
+    {
+        List<TimelineItem> items = new ArrayList<>();
+        for(DayStatus dayStatus : dayStatuses)
+        {
+            TimelineItem item = new TimelineItem(new ImageView(getContext()), new TextView(getContext()), new TextView(getContext())
+            , new ImageView(getContext()), new TextView(getContext()));
+            if(dayStatus.emotion_type.equals("super happy"))
+                item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.super_happy));
+            if(dayStatus.emotion_type.equals("happy"))
+                item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.happy));
+            if(dayStatus.emotion_type.equals("no emotion"))
+                item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.no_emotion));
+            if(dayStatus.emotion_type.equals("sad"))
+                item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.sad));
+            if(dayStatus.emotion_type.equals("super sad"))
+                item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.super_sad));
+
+            item.getNotes().setText(dayStatus.note);
+            item.getDayOfWeek().setText(dayStatus.day_of_week);
+            items.add(item);
+        }
         return items;
     }
 
-    public ArrayList<DayDetailIcon> getIcons()
+    public List<List<DayDetailIcon>> getIconss(List<DayStatus> dayStatuses)
     {
-        ImageView imageView = new ImageView(getContext());
-
-        imageView.setImageResource(R.drawable.happy);
-
-        ArrayList<DayDetailIcon> icons = new ArrayList<>();
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-        icons.add(new DayDetailIcon(imageView));
-
-        return icons;
+        List<List<DayDetailIcon>> iconss = new ArrayList<>();
+        for(DayStatus dayStatus : dayStatuses)
+        {
+            List<DayDetailIcon> icons = new ArrayList<>();
+            if(dayStatus.sunny){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.sunny));
+                icons.add(icon);
+            }
+            if(dayStatus.windy){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.wind));
+                icons.add(icon);
+            }
+            if(dayStatus.cloudy){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.cloudy));
+                icons.add(icon);
+            }
+            if(dayStatus.rainy){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.rainy));
+                icons.add(icon);
+            }
+            if(dayStatus.snowy){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.snowy));
+                icons.add(icon);
+            }
+            if(dayStatus.friends){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.friend));
+                icons.add(icon);
+            }
+            if(dayStatus.family){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.family));
+                icons.add(icon);
+            }
+            if(dayStatus.GFBF){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.love));
+                icons.add(icon);
+            }
+            if(dayStatus.acquaintance){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.acquaintance));
+                icons.add(icon);
+            }
+            if(dayStatus.none){
+                DayDetailIcon icon = new DayDetailIcon(new ImageView(getContext()));
+                icon.getImageView().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.none));
+                icons.add(icon);
+            }
+            iconss.add(icons);
+        }
+        return iconss;
     }
 }

@@ -107,4 +107,6 @@ public class FragmentHowWasYourDay extends Fragment {
             }
         });
     }
+
+
 }

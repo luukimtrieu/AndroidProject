@@ -5,7 +5,8 @@ import android.widget.ImageView;
 public class DayDetailIcon {
     private ImageView imageView;
 
-    public DayDetailIcon(ImageView imageView) {
+    public DayDetailIcon(ImageView imageView)
+    {
         this.imageView = imageView;
     }
 

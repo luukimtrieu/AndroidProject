@@ -18,7 +18,7 @@ public class DayStatus {
     @PrimaryKey
     @NonNull
     public String date;
-
+    public String day_of_week;
     public String emotion_type;
     public boolean sunny;
     public boolean cloudy;

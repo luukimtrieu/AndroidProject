@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<DayStatus> dayStatuses = db.dayStatusDao().getAll();
 
-       // deleteDatabase("database.db");
+        //deleteDatabase("database.db");
 
     }
 }

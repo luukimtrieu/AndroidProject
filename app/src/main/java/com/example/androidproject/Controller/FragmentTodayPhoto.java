@@ -97,12 +97,13 @@ public class FragmentTodayPhoto extends Fragment {
             }
         });
 
+
         SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         viewModel.getLiveDataDayStatus().observe(getViewLifecycleOwner(), new Observer<DayStatus>() {
             @Override
             public void onChanged(DayStatus dayStatus) {
                 Uri uri = Uri.parse(dayStatus.photo_URL);
-                imageViewPhoto.setImageURI(uri);
+                /*imageViewPhoto.setImageURI(uri);*/
             }
         });
 

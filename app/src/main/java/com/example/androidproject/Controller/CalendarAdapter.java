@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -15,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidproject.Model.CalendarItem;
 import com.example.androidproject.R;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
@@ -71,10 +76,27 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                     else if(stateOfDay.getBackground().getConstantState()
                             == itemView.getResources().getDrawable(R.drawable.round_button, null).getConstantState())
                     {
-                        bundle.putInt("exist", 0);
-                        bundle.putString("day", dayInMonth.getText().toString());
-                        bundle.putString("year month", stateOfDay.getContentDescription().toString());
-                        Navigation.findNavController(view).navigate(R.id.action_calendarFragment_to_addDayStatusFragment, bundle);
+                        //Get today date
+                        LocalDate todayLocalDate = LocalDate.now();
+
+                        //get selected date
+                        String yearMonth_string = stateOfDay.getContentDescription().toString();
+                        String day_string = dayInMonth.getText().toString();
+                        if(Integer.parseInt(day_string) < 10)
+                            day_string = "0" + day_string;
+                        LocalDate selectedLocalDate = LocalDate.parse(yearMonth_string + "-" + day_string);
+                        String day_of_week = selectedLocalDate.getDayOfWeek().toString();
+
+                        //compare them
+                        if(!selectedLocalDate.isAfter(todayLocalDate)){
+                            bundle.putInt("exist", 0);
+                            bundle.putString("day", dayInMonth.getText().toString());
+                            bundle.putString("year month", stateOfDay.getContentDescription().toString());
+                            bundle.putString("day of week", day_of_week);
+                            Navigation.findNavController(view).navigate(R.id.action_calendarFragment_to_addDayStatusFragment, bundle);
+                        }
+                        else
+                            Toast.makeText(context, "You can not select future date", Toast.LENGTH_LONG).show();
                     }
                     else
                     {

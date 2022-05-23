@@ -104,7 +104,8 @@ public class FragmentWeather extends Fragment {
         initView(view);
         setEvent();
         SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        viewModel.getLiveDataDayStatus().observe(getViewLifecycleOwner(), new Observer<DayStatus>() {
+
+        Observer<DayStatus> observer = new Observer<DayStatus>() {
             @Override
             public void onChanged(DayStatus dayStatus) {
                 boolean sunny_bool = dayStatus.sunny;
@@ -122,9 +123,11 @@ public class FragmentWeather extends Fragment {
                     windy.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.wind));
                 if(snowy_bool)
                     snowy.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.snowy));
-
+                viewModel.getLiveDataDayStatus().removeObserver(this);
             }
-        });
+        };
+
+        viewModel.getLiveDataDayStatus().observe(getViewLifecycleOwner(), observer);
     }
 
     public void initView(View view)

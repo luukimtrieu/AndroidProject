@@ -13,12 +13,13 @@ import com.example.androidproject.Model.DayDetailIcon;
 import com.example.androidproject.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DayDetailIconAdapter extends RecyclerView.Adapter<DayDetailIconAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<DayDetailIcon> imageViews;
+    private List<DayDetailIcon> imageViews;
 
-    public DayDetailIconAdapter(Context context, ArrayList<DayDetailIcon> imageViews) {
+    public DayDetailIconAdapter(Context context, List <DayDetailIcon> imageViews) {
         this.context = context;
         this.imageViews = imageViews;
     }

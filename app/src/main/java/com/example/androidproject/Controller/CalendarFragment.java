@@ -107,85 +107,171 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnDatePicker = view.findViewById(R.id.calendarDatePicker);
-        initDatePicker();
-        btnDatePicker.setText(getTodayDate());
-        btnDatePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
-            }
-        });
+        if(getArguments() != null)
+        {
+            if(getArguments().getString("date") != null)
+            {
+                db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+                btnDatePicker = view.findViewById(R.id.calendarDatePicker);
+                viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+                recyclerView = view.findViewById(R.id.RecycleViewSubIcons);
 
-        btnDatePicker.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String date = getArguments().getString("date");
+                dayStatuses = db.dayStatusDao().getAllBySelectedDate(date);
 
-            }
+                date = toMonthYear(date);
+                initDatePicker();
+                btnDatePicker.setText(removeFirstCharZero(date));
+                btnDatePicker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
+                    }
+                });
+                btnDatePicker.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    }
 
-            }
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String date = dateFormat(btnDatePicker.getText().toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        String date = dateFormat(btnDatePicker.getText().toString());
+                        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+                        YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+                        LocalDate parsedDate = yearMonth.atDay(1);
+                        dayStatuses = db.dayStatusDao().getAllBySelectedDate(toYearMonth(date));
+                        setMonthYear(parsedDate);
+                    }
+                });
+
+
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
                 YearMonth yearMonth = YearMonth.parse(date, dateFormat);
                 LocalDate parsedDate = yearMonth.atDay(1);
-                dayStatuses = db.dayStatusDao().getAllBySelectedDate(toYearMonth(date));
                 setMonthYear(parsedDate);
+
+                bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+                bottomNavigationView.setSelectedItemId(R.id.calendarFragment);
+                bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.calendarFragment:
+                                Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
+                                break;
+                            case R.id.timelineFragment:
+                                Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
+                                break;
+                            case R.id.reportFragment:
+                                Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
+                                break;
+                            case R.id.settingFragment:
+                                Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
+                                break;
+                        }
+                        return true;
+                    }
+                });
             }
-        });
-
-        db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
-
-        String date = dateFormat(btnDatePicker.getText().toString());
-
-        dayStatuses = db.dayStatusDao().getAllBySelectedDate(toYearMonth(date));
-
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-
-        recyclerView = view.findViewById(R.id.RecycleViewSubIcons);
-        selectedDate = LocalDate.now();
-        setMonthYear(selectedDate);
-
-        bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.calendarFragment);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-                    case R.id.calendarFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
-                        break;
-                    case R.id.timelineFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
-                        break;
-                    case R.id.reportFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
-                        break;
-                    case R.id.settingFragment:
-                        Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
-                        break;
+        }
+        else {
+            btnDatePicker = view.findViewById(R.id.calendarDatePicker);
+            initDatePicker();
+            btnDatePicker.setText(getTodayDate());
+            btnDatePicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    monthYearPickerDialog.show(getParentFragmentManager(), "MonthYearPickerDialog");
                 }
-                return true;
-            }
-        });
+            });
+
+            btnDatePicker.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String date = dateFormat(editable.toString());
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM/yyyy");
+                    YearMonth yearMonth = YearMonth.parse(date, dateFormat);
+                    LocalDate parsedDate = yearMonth.atDay(1);
+                    dayStatuses = db.dayStatusDao().getAllBySelectedDate(toYearMonth(date));
+                    setMonthYear(parsedDate);
+
+                }
+            });
+
+            db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+
+            String date = dateFormat(btnDatePicker.getText().toString());
+
+            dayStatuses = db.dayStatusDao().getAllBySelectedDate(toYearMonth(date));
+
+            viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+            recyclerView = view.findViewById(R.id.RecycleViewSubIcons);
+            selectedDate = LocalDate.now();
+            setMonthYear(selectedDate);
+
+            bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+            bottomNavigationView.setSelectedItemId(R.id.calendarFragment);
+            bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.calendarFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_calendarFragment);
+                            break;
+                        case R.id.timelineFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_timelineFragment);
+                            break;
+                        case R.id.reportFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
+                            break;
+                        case R.id.settingFragment:
+                            Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
+                            break;
+                    }
+                    return true;
+                }
+            });
+        }
     }
+
+    public String removeFirstCharZero(String date)
+    {
+        if(date.charAt(0) == '0')
+            return date.substring(1);
+        return date;
+    }
+
+    public String toMonthYear(String date)
+    {
+        String year = date.substring(0,4);
+        String month = date.substring(5,7);
+
+        return month + "/" + year;
+    }
+
 
     public String toYearMonth(String date)
     {
         String temp1 = date.substring(0,2);
         String temp2 = date.substring(3,7);
         return temp2 + "-" + temp1;
-    }
-
-    public String getDay(String date)
-    {
-        return date.substring(date.length() - 2);
     }
 
     public String dateFormat(String date)
@@ -196,7 +282,7 @@ public class CalendarFragment extends Fragment {
     }
 
     public String getTodayDate()
-     {
+    {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -219,33 +305,7 @@ public class CalendarFragment extends Fragment {
         monthYearPickerDialog.setListener(onDateSetListener);
     }
 
-    public String getMonthFormat(int month) {
-        if(month == 1)
-            return "Jan";
-        if(month == 2)
-            return "Feb";
-        if(month == 3)
-            return "Mar";
-        if(month == 4)
-            return "Apr";
-        if(month == 5)
-            return "May";
-        if(month == 6)
-            return "June";
-        if(month == 7)
-            return "July";
-        if(month == 8)
-            return "Aug";
-        if(month == 9)
-            return "Sep";
-        if(month == 10)
-            return "Oct";
-        if(month == 11)
-            return "Nov";
-        if(month == 12)
-            return "Dec";
-        return "Jan";
-    }
+
 
 
     public String makeDateString(int month, int year)

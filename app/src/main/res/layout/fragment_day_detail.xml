@@ -97,13 +97,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewNote" />
 
             <TextView
-                android:id="@+id/textViewDayMonth"
+                android:id="@+id/textViewDayOfWeek"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="02 Feb"
-                android:textAlignment="center"
                 android:background="@drawable/round_background_textview"
+                android:text="02 Feb"
+                app:layout_constraintVertical_bias=".1"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ImageViewMainIcon"
                 app:layout_constraintStart_toStartOf="@+id/ImageViewMainIcon"
                 app:layout_constraintTop_toBottomOf="@+id/ImageViewMainIcon" />
