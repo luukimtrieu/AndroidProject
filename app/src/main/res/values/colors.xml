@@ -11,11 +11,12 @@
     <color name="transparent">#00000000</color>
     <color name="light_green">#60ae72</color>
     <color name="bottom_menu_color">#424242</color>
-    <color name="super_happy">#eedc88</color>
-    <color name="happy">#b7d58b</color>
-    <color name="no_emotion">#60ae72</color>
-    <color name="sad">#3b7751</color>
-    <color name="super_sad">#6c7874</color>
+
+    <color name="super_happy">#fec05d</color>
+    <color name="happy">#f69faf</color>
+    <color name="no_emotion">#f7cad1</color>
+    <color name="sad">#b0dedc</color>
+    <color name="super_sad">#5f84a1</color>
     <color name="color_line">#6ab67d</color>
 
 

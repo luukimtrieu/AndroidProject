@@ -25,16 +25,15 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MoodBarFragment#newInstance} factory method to
+ * Use the {@link SecondMoodBarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoodBarFragment extends Fragment {
+public class SecondMoodBarFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +45,7 @@ public class MoodBarFragment extends Fragment {
     private String mParam2;
     private PieChart pieChart;
     private AppDatabase db;
-    private String yearMonth;
+    private String year;
     private List<DayStatus> dayStatuses;
     private float super_happy_percent;
     private float happy_percent;
@@ -60,8 +59,7 @@ public class MoodBarFragment extends Fragment {
     private TextView tv_sad_percentage;
     private TextView tv_super_sad_percentage;
 
-
-    public MoodBarFragment() {
+    public SecondMoodBarFragment() {
         // Required empty public constructor
     }
 
@@ -71,11 +69,11 @@ public class MoodBarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MoodBarFragment.
+     * @return A new instance of fragment SecondMoodBarFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MoodBarFragment newInstance(String param1, String param2) {
-        MoodBarFragment fragment = new MoodBarFragment();
+    public static SecondMoodBarFragment newInstance(String param1, String param2) {
+        SecondMoodBarFragment fragment = new SecondMoodBarFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,25 +94,24 @@ public class MoodBarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mood_bar, container, false);
+        return inflater.inflate(R.layout.fragment_second_mood_bar, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tv_super_happy_percentage = view.findViewById(R.id.tvPercentageSuperHappy);
-        tv_happy_percentage = view.findViewById(R.id.tvPercentageHappy);
-        tv_no_emotion_percentage = view.findViewById(R.id.tvPercentageNoEmotion);
-        tv_sad_percentage = view.findViewById(R.id.tvPercentageSad);
-        tv_super_sad_percentage = view.findViewById(R.id.tvPercentageSuperSad);
-
+        tv_super_happy_percentage = view.findViewById(R.id.second_tvPercentageSuperHappy);
+        tv_happy_percentage = view.findViewById(R.id.second_tvPercentageHappy);
+        tv_no_emotion_percentage = view.findViewById(R.id.second_tvPercentageNoEmotion);
+        tv_sad_percentage = view.findViewById(R.id.second_tvPercentageSad);
+        tv_super_sad_percentage = view.findViewById(R.id.second_tvPercentageSuperSad);
         StringViewModel stringViewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
         stringViewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                yearMonth = s;
+                year = s.substring(0,4);
                 db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
-                dayStatuses = db.dayStatusDao().getAllBySelectedDate(yearMonth);
+                dayStatuses = db.dayStatusDao().getAllBySelectedDate(year);
                 settingPieChart(view);
                 setPieData();
             }
@@ -123,7 +120,7 @@ public class MoodBarFragment extends Fragment {
 
     public void settingPieChart(View view)
     {
-        pieChart = view.findViewById(R.id.pieChart);
+        pieChart = view.findViewById(R.id.second_pieChart);
         pieChart.setDrawHoleEnabled(false);
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
@@ -163,12 +160,12 @@ public class MoodBarFragment extends Fragment {
     public List<PieEntry> getEntries()
     {
         List<PieEntry> entries = new ArrayList<>();
-        total = db.dayStatusDao().countByDate(yearMonth);
-        int super_happy_count = db.dayStatusDao().countEmotionTypeByDate("super happy", yearMonth);
-        int happy_count = db.dayStatusDao().countEmotionTypeByDate("happy", yearMonth);
-        int no_emotion_count = db.dayStatusDao().countEmotionTypeByDate("no emotion", yearMonth);
-        int sad_count = db.dayStatusDao().countEmotionTypeByDate("sad", yearMonth);
-        int super_sad_count = db.dayStatusDao().countEmotionTypeByDate("super sad", yearMonth);
+        total = db.dayStatusDao().countByDate(year);
+        int super_happy_count = db.dayStatusDao().countEmotionTypeByDate("super happy", year);
+        int happy_count = db.dayStatusDao().countEmotionTypeByDate("happy", year);
+        int no_emotion_count = db.dayStatusDao().countEmotionTypeByDate("no emotion", year);
+        int sad_count = db.dayStatusDao().countEmotionTypeByDate("sad", year);
+        int super_sad_count = db.dayStatusDao().countEmotionTypeByDate("super sad", year);
 
         super_happy_percent = Math.round((super_happy_count / total) * 100);
         happy_percent = Math.round((happy_count / total) * 100);

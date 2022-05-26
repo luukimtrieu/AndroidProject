@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
@@ -115,7 +114,55 @@ public class MoodFlowFragment extends Fragment {
 
     public void setLineData()
     {
-        ArrayList<Entry> entries = createEntryList();
+        ArrayList<Entry> entries = new ArrayList<>();
+        ArrayList<Entry> invisibleEntries = new ArrayList<>();
+
+        Collections.sort(dayStatuses, new Comparator<DayStatus>() {
+            @Override
+            public int compare(DayStatus dayStatus, DayStatus t1) {
+                return dayStatus.date.compareTo(t1.date);
+            }
+        });
+
+        pos = 0;
+        for(DayStatus dayStatus : dayStatuses)
+        {
+            boolean flag = false;
+            int day = getDay(dayStatus.date) - 1;
+            if(dayStatus.emotion_type.equals("super happy")) {
+                flag = true;
+                entries.add(new Entry(day, 5));
+            }
+            if(dayStatus.emotion_type.equals("happy")) {
+                flag = true;
+                entries.add(new Entry(day, 4));
+            }
+            if(dayStatus.emotion_type.equals("no emotion")) {
+                flag = true;
+                entries.add(new Entry(day, 3));
+            }
+            if(dayStatus.emotion_type.equals("sad")) {
+                flag = true;
+                entries.add(new Entry(day, 2));
+            }
+            if(dayStatus.emotion_type.equals("super sad")) {
+                flag = true;
+                entries.add(new Entry(day, 1));
+            }
+            if(!flag)
+            {
+                invisibleEntries.add(new Entry(pos, 0));
+                pos += 1;
+            }
+        }
+
+        while(pos < 31)
+        {
+            invisibleEntries.add(new Entry(pos, 0));
+            pos += 1;
+        }
+
+
         LineDataSet dataSet = new LineDataSet(entries, null);
         dataSet.setColor(getResources().getColor(R.color.color_line, null));
         dataSet.setCircleColor(getResources().getColor(R.color.color_line, null));
@@ -126,7 +173,6 @@ public class MoodFlowFragment extends Fragment {
         dataSet.setCircleHoleRadius(1.6f);
         dataSet.setValueTextSize(0);
 
-        ArrayList<Entry> invisibleEntries = createInvisibleEntryList();
         LineDataSet dataSet2 = new LineDataSet(invisibleEntries, null);
         dataSet2.setColor(getResources().getColor(R.color.transparent, null));
         dataSet2.setDrawCircles(true);

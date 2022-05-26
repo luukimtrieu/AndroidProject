@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    tools:context=".Controller.IconRankingTopFiveFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/second_textViewTop6"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background_textview"
+        android:gravity="center"
+        android:text="1"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintVertical_bias=".1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/second_textViewTop7"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background_textview"
+        android:gravity="center"
+        android:text="2"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintVertical_bias=".3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/second_textViewTop8"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background_textview"
+        android:gravity="center"
+        android:text="3"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintVertical_bias=".5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/second_textViewTop9"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background_textview"
+        android:gravity="center"
+        android:text="4"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintVertical_bias=".7"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/second_textViewTop10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/round_background_textview"
+        android:gravity="center"
+        android:text="5"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintVertical_bias=".9"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/second_imageViewTop6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop6"
+        />
+
+    <ImageView
+        android:id="@+id/second_imageViewTop7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop7" />
+
+    <ImageView
+        android:id="@+id/second_imageViewTop8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop8" />
+
+    <ImageView
+        android:id="@+id/second_imageViewTop9"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop9" />
+
+    <ImageView
+        android:id="@+id/second_imageViewTop10"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/happy"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop10" />
+
+    <TextView
+        android:id="@+id/second_textViewTop6_IconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rainy"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/second_imageViewTop6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/second_imageViewTop6"
+        app:layout_constraintTop_toTopOf="@+id/second_imageViewTop6" />
+
+
+
+    <TextView
+        android:id="@+id/second_textViewTop7_IconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="friends"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/second_imageViewTop7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/second_imageViewTop7"
+        app:layout_constraintTop_toTopOf="@+id/second_imageViewTop7" />
+
+    <TextView
+        android:id="@+id/second_textViewTop8_IconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="family"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/second_imageViewTop8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/second_imageViewTop8"
+        app:layout_constraintTop_toTopOf="@+id/second_imageViewTop8" />
+
+    <TextView
+        android:id="@+id/second_textViewTop9_IconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cloudy"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/second_imageViewTop9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/second_imageViewTop9"
+        app:layout_constraintTop_toTopOf="@+id/second_imageViewTop9" />
+
+    <TextView
+        android:id="@+id/second_textViewTop10_IconName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sunny"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/second_imageViewTop10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".05"
+        app:layout_constraintStart_toEndOf="@+id/second_imageViewTop10"
+        app:layout_constraintTop_toTopOf="@+id/second_imageViewTop10" />
+
+    <TextView
+        android:id="@+id/second_textViewTop6Count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop6"
+        />
+
+    <TextView
+        android:id="@+id/second_textViewTop7Count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="15"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop7" />
+
+    <TextView
+        android:id="@+id/second_textViewTop8Count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="23"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop8" />
+
+    <TextView
+        android:id="@+id/second_textViewTop9Count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="67"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop9" />
+
+    <TextView
+        android:id="@+id/second_textViewTop10Count"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/second_textViewTop10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/second_textViewTop10" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

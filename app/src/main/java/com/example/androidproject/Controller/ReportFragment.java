@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.room.Room;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,17 +22,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.example.androidproject.Model.Database.AppDatabase;
-import com.example.androidproject.Model.Database.DayStatus;
 import com.example.androidproject.Model.StringViewModel;
 import com.example.androidproject.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +42,7 @@ public class ReportFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final int NUM_PAGES = 2;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -51,6 +53,10 @@ public class ReportFragment extends Fragment {
     private MonthYearPickerDialog monthYearPickerDialog;
     private BottomNavigationView bottomNavigationView;
     private AppDatabase db;
+    private StringViewModel viewModel;
+    private ViewPager2 viewPager2;
+    private FragmentStateAdapter fragmentStateAdapter;
+    private TabLayout tabLayout;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -94,8 +100,29 @@ public class ReportFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
-        StringViewModel viewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
+        settingButton(view);
+        settingViewPager2(view);
+        settingBottomNavigation(view);
+        settingTabLayout(view);
+    }
 
+    public void settingTabLayout(View view)
+    {
+        tabLayout = view.findViewById(R.id.tabLayout);
+        new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if(position == 0)
+                    tab.setText("MONTHLY");
+                else
+                    tab.setText("ANNUAL");
+            }
+        }).attach();
+    }
+
+    public void settingButton(View view)
+    {
         btnDatePicker = view.findViewById(R.id.reportDatePicker);
         initDatePicker();
         btnDatePicker.setText(getTodayDate());
@@ -127,7 +154,17 @@ public class ReportFragment extends Fragment {
                 viewModel.setString(yearMonth.toString());
             }
         });
+    }
 
+    public void settingViewPager2(View view)
+    {
+        viewPager2 = view.findViewById(R.id.viewPagerReport);
+        fragmentStateAdapter = new ScreenSlidePageAdapter(this);
+        viewPager2.setAdapter(fragmentStateAdapter);
+    }
+
+    public void settingBottomNavigation(View view)
+    {
         bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.reportFragment);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -197,5 +234,23 @@ public class ReportFragment extends Fragment {
         return month + "/" + year;
     }
 
+    private class ScreenSlidePageAdapter extends FragmentStateAdapter {
+        public ScreenSlidePageAdapter(Fragment fa) {
+            super(fa);
+        }
+
+        @Override
+        public Fragment createFragment(int position) {
+            if(position == 0)
+                return new HolderReportFragment();
+            else
+                return new SecondHolderReportFragment();
+        }
+
+        @Override
+        public int getItemCount() {
+            return NUM_PAGES;
+        }
+    }
 
 }

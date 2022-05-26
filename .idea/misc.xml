@@ -38,13 +38,20 @@
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_holder.xml" value="0.10400000000000001" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_holder_add.xml" value="0.1838768115942029" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_holder_report.xml" value="0.1838768115942029" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_holder_report_second.xml" value="0.19791666666666666" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_holder_timeline.xml" value="0.1838768115942029" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_how_was_your_day.xml" value="0.1838768115942029" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_icon_ranking.xml" value="0.264" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_icon_ranking_second.xml" value="0.22056159420289856" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_icon_ranking_top_five.xml" value="0.19791666666666666" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_icon_ranking_top_ten.xml" value="0.19791666666666666" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_mood_bar.xml" value="0.264" />
-        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_moodflow.xml" value="0.4" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_moodflow.xml" value="0.176" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_report.xml" value="0.264" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_second_icon_ranking_top_five.xml" value="0.19791666666666666" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_second_icon_ranking_top_ten.xml" value="0.19791666666666666" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_second_mood_bar.xml" value="0.19791666666666666" />
+        <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_second_mood_flow.xml" value="0.19791666666666666" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_setting.xml" value="0.1838768115942029" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_social.xml" value="0.22056159420289856" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/layout/fragment_timeline.xml" value="0.1838768115942029" />

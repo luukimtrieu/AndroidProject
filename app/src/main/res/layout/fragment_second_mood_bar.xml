@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="450dp"
+    android:background="@drawable/round_background_darker"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Controller.MoodBarFragment">
+
+
+    <!-- Pie Chart -->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/second_pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/second_imageView6"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias=".1"
+        android:src="@drawable/super_happy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_pieChart" />
+
+    <ImageView
+        android:id="@+id/second_imageView7"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/happy"
+        app:layout_constraintHorizontal_bias=".3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_pieChart" />
+
+    <ImageView
+        android:id="@+id/second_imageView8"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias=".5"
+        android:src="@drawable/no_emotion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_pieChart" />
+
+    <ImageView
+        android:id="@+id/second_imageView9"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias=".7"
+        android:src="@drawable/sad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_pieChart"
+        />
+
+    <ImageView
+        android:id="@+id/second_imageView10"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias=".9"
+        android:src="@drawable/super_sad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_pieChart" />
+
+    <TextView
+        android:id="@+id/second_tvPercentageSuperHappy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="50%"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/second_imageView6"
+        app:layout_constraintStart_toStartOf="@+id/second_imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/second_imageView6" />
+
+    <TextView
+        android:id="@+id/second_tvPercentageHappy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="50%"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/second_imageView7"
+        app:layout_constraintStart_toStartOf="@+id/second_imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/second_imageView7" />
+
+    <TextView
+        android:id="@+id/second_tvPercentageNoEmotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="50%"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/second_imageView8"
+        app:layout_constraintStart_toStartOf="@+id/second_imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/second_imageView8" />
+
+    <TextView
+        android:id="@+id/second_tvPercentageSad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="50%"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/second_imageView9"
+        app:layout_constraintStart_toStartOf="@+id/second_imageView9"
+        app:layout_constraintTop_toBottomOf="@+id/second_imageView9" />
+
+    <TextView
+        android:id="@+id/second_tvPercentageSuperSad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="50%"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/second_imageView10"
+        app:layout_constraintStart_toStartOf="@+id/second_imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/second_imageView10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

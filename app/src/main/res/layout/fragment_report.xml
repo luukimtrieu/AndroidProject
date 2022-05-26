@@ -62,11 +62,12 @@
         android:layout_marginTop="16dp"
         >
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView9"
-            android:name="com.example.androidproject.Controller.HolderReportFragment"
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/viewPagerReport"/>
+
+
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
