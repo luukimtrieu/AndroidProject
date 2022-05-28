@@ -16,8 +16,5 @@
         android:iconTint="@color/light_green"
         android:icon="@drawable/ic_baseline_analytics"/>
 
-    <item android:id="@+id/settingFragment"
-        android:title="Setting"
-        android:iconTint="@color/light_green"
-        android:icon="@drawable/ic_baseline_settings"/>
+
 </menu>

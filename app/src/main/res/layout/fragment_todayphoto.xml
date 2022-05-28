@@ -10,11 +10,12 @@
 
     <ImageView
         android:id="@+id/imageViewTodayPhoto"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
         android:layout_height="300dp"
         android:background="@drawable/pick_photo_background"
         android:scaleType="centerCrop"
         android:contentDescription=""
+        app:layout_constraintWidth_percent=".8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

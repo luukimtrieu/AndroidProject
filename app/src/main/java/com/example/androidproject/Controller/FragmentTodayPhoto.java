@@ -1,5 +1,6 @@
 package com.example.androidproject.Controller;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,13 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.androidproject.MainActivity;
 import com.example.androidproject.Model.Database.DayStatus;
 import com.example.androidproject.Model.SharedViewModel;
+import com.example.androidproject.Model.StringViewModel;
 import com.example.androidproject.R;
 
 /**
@@ -38,13 +42,13 @@ public class FragmentTodayPhoto extends Fragment {
     private String mParam1;
     private String mParam2;
     private ImageView imageViewPhoto;
-    private String uri;
-    private ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+    private String uri_string;
+    private ActivityResultLauncher<String[]> resultLauncher = registerForActivityResult(new ActivityResultContracts.OpenDocument(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
             imageViewPhoto.setImageURI(result);
-            uri = result.toString();
-            imageViewPhoto.setContentDescription(uri);
+            uri_string = result.toString();
+            imageViewPhoto.setContentDescription(uri_string);
         }
     });
 
@@ -93,9 +97,20 @@ public class FragmentTodayPhoto extends Fragment {
         imageViewPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultLauncher.launch("image/*");
+                ((MainActivity)requireActivity()).TodayPhotoClick();
             }
         });
+
+        StringViewModel stringViewModel = new ViewModelProvider(requireActivity()).get(StringViewModel.class);
+        stringViewModel.getLiveData3().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                imageViewPhoto.setImageURI(Uri.parse(s));
+                uri_string = s.toString();
+                imageViewPhoto.setContentDescription(uri_string);
+            }
+        });
+
 
 
         SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
@@ -103,9 +118,10 @@ public class FragmentTodayPhoto extends Fragment {
             @Override
             public void onChanged(DayStatus dayStatus) {
                 Uri uri = Uri.parse(dayStatus.photo_URL);
-                /*imageViewPhoto.setImageURI(uri);*/
+                uri_string = uri.toString();
+                imageViewPhoto.setContentDescription(uri_string);
+                imageViewPhoto.setImageURI(uri);
             }
         });
-
     }
 }

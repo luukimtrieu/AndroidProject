@@ -12,8 +12,6 @@ public class SharedViewModel extends ViewModel {
     private final MutableLiveData<DayStatus> liveDataDayStatus = new MutableLiveData<>();
     private DayStatus dayStatus;
 
-
-
     public MutableLiveData<DayStatus> getLiveDataDayStatus() {
         return liveDataDayStatus;
     }

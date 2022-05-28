@@ -171,9 +171,6 @@ public class CalendarFragment extends Fragment {
                             case R.id.reportFragment:
                                 Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
                                 break;
-                            case R.id.settingFragment:
-                                Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
-                                break;
                         }
                         return true;
                     }

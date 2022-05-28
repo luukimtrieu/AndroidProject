@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -64,7 +68,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.ViewHo
         holder.dayOfWeek.setText(item.getDayOfWeek().getText().toString());
         holder.notes.setText(item.getNotes().getText().toString());
         holder.photo.setImageDrawable(item.getPhoto().getDrawable());
-
 
         List<DayDetailIcon> icons = iconss.get(position);
         DayDetailIconAdapter adapter = new DayDetailIconAdapter(context, icons);

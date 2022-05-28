@@ -1,11 +1,17 @@
 package com.example.androidproject.Controller;
 
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -17,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -111,6 +118,7 @@ public class TimelineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         if(getArguments() != null)
         {
             db = Room.databaseBuilder(getContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
@@ -171,9 +179,6 @@ public class TimelineFragment extends Fragment {
                         case R.id.reportFragment:
                             Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
                             break;
-                        case R.id.settingFragment:
-                            Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
-                            break;
                     }
                     return true;
                 }
@@ -233,9 +238,6 @@ public class TimelineFragment extends Fragment {
                             break;
                         case R.id.reportFragment:
                             Navigation.findNavController(view).navigate(R.id.action_global_reportFragment);
-                            break;
-                        case R.id.settingFragment:
-                            Navigation.findNavController(view).navigate(R.id.action_global_settingFragment);
                             break;
                     }
                     return true;
@@ -334,6 +336,7 @@ public class TimelineFragment extends Fragment {
             if(dayStatus.emotion_type.equals("super sad"))
                 item.getMainIcon().setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.super_sad));
 
+            item.getPhoto().setImageURI(Uri.parse(dayStatus.photo_URL));
             item.getNotes().setText(dayStatus.note);
             item.getDayOfWeek().setText(dayStatus.day_of_week);
             items.add(item);

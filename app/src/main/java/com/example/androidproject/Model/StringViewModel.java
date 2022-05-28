@@ -8,6 +8,17 @@ public class StringViewModel extends ViewModel {
     private String string;
     private MutableLiveData<String> liveData2 = new MutableLiveData<>();
     private String emotion;
+    private MutableLiveData<String> liveData3 = new MutableLiveData<>();
+    private String photo_url;
+
+    public MutableLiveData<String> getLiveData3() {
+        return liveData3;
+    }
+
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
+        liveData3.setValue(this.photo_url);
+    }
 
     public MutableLiveData<String> getLiveData2() {
         return liveData2;

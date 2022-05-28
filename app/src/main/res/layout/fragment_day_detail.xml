@@ -87,14 +87,14 @@
                 android:id="@+id/imageViewPhoto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="40dp"
-                android:scaleType="center"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textViewStraightLine"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNote" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewNote"
+                app:layout_constraintWidth_percent=".6"/>
 
             <TextView
                 android:id="@+id/textViewDayOfWeek"
