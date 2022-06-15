@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/activity_main.xml" value="0.1526268115942029" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/date_picker_dialog.xml" value="0.20652173913043478" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/day_detail_icon.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_calendar.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_holder_add.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_icon_ranking_top_five.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_mood_bar.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_moodflow.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_report.xml" value="0.2418478260869565" />
+        <entry key="..\:/AndroidProject/app/src/main/res/layout/fragment_second_mood_bar.xml" value="0.2418478260869565" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/drawable/happy_background.xml" value="0.2315" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/drawable/ic_baseline_calendar.xml" value="0.14" />
         <entry key="..\:/Studies/Android projects/AndroidProject/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.14" />
